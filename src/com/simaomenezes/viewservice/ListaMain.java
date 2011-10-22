@@ -3,6 +3,9 @@ package com.simaomenezes.viewservice;
 import java.util.Arrays;
 import java.util.List;
 
+import com.simaomenezes.dao.AlunoDAO;
+import com.simaomenezes.model.Aluno;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,8 +26,9 @@ public class ListaMain extends Activity {
 	 * Declaração dos widgets
 	 */
 	private ListView listViewAlunos;
-	private List<String> alunos;
-	private ArrayAdapter<String> adapter;
+	private AlunoDAO alunoDAO = new AlunoDAO(this);
+	ArrayAdapter<Aluno> adapter;
+	
 	
     /** Called when the activity is first created. */
     @Override
@@ -44,8 +48,12 @@ public class ListaMain extends Activity {
      * Chama a lista de alunos
      * */
     public void getListaAlunos(){
-    	this.alunos = Arrays.asList("Simão Neto","Sara Moura Menezes","Ana Paula Moura");
-    	this.adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
+//    	this.alunos = Arrays.asList("Simão Neto","Sara Moura Menezes","Ana Paula Moura");
+//    	this.adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
+    	
+    	List<Aluno> lis = alunoDAO.getAlunos();
+    	alunoDAO.close();    	
+    	adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, lis);   	
     }
     
     /**
